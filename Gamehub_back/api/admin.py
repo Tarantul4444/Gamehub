@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Game, Genre, User, Comment
+from .models import Game, Genre, User, Comment, Like
 
 
 @admin.register(Game)
@@ -31,3 +31,9 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'author', 'description', 'game', 'date')
     search_fields = ('game', 'date')
     list_filter = ('game',)
+
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'game')
+    search_fields = ('user', 'game')

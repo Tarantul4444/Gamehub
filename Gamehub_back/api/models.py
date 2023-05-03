@@ -52,12 +52,17 @@ class Like(models.Model):
 
     def save(self, *args, **kwargs):
         # обновляем количество лайков при создании или сохранении объекта Like
-        self.game.likes_count = self.game.likes.count()
+        self.game.likes_count = self.game.likes_count + 1
         self.game.save()
         super(Like, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # обновляем количество лайков при удалении объекта Like
-        self.game.likes_count = self.game.likes.count()
+        self.game.likes_count = self.game.likes_count + 1
         self.game.save()
         super(Like, self).delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Like'
+        verbose_name_plural = 'Likes'
+        unique_together = ('user', 'game')

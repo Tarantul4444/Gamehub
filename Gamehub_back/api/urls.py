@@ -6,7 +6,7 @@ urlpatterns = [
     path('', GamesView.as_view()),
     path('games/', GamesView.as_view()),
     path('games/<int:game_id>/', GameView.as_view()),
-    path('recommend/', RecommendView.as_view()),
+    path('recommend/<int:user_id>/', RecommendView.as_view()),
     # users
     path('users/', UsersView.as_view()),
     path('users/<int:user_id>/', UserView.as_view()),

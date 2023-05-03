@@ -53,16 +53,18 @@ class GameView(APIView):
 
 
 class RecommendView(APIView):
-    def get(self, request):
-        serializer = LikeSerializer(data=request.data, many=True)
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        likes = Like.objects.filter(user=user)
         games = set()
-        for like in serializer:
+        for like in likes:
             games.add(like.game)
         genres_set = set()
         for game in games:
             genres = game.genres.all()
             for genre in genres:
                 genres_set.add(genre)
+        games = set()
         for genre in genres_set:
             for game in Game.objects.all().filter(genres__name=genre.name):
                 games.add(game.id)
